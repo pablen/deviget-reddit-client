@@ -3,8 +3,7 @@ import React from 'react'
 
 import App from './App'
 
-test('renders dummy app', () => {
+test('renders basic layout', () => {
   const { getByText } = render(<App />)
-  const linkElement = getByText(/foobar/i)
-  expect(linkElement).toBeInTheDocument()
+  expect(getByText(/Reddit Posts/i)).toBeInTheDocument()
 })
