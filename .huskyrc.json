@@ -1,0 +1,5 @@
+{
+  "hooks": {
+    "pre-commit": "tsc && CI=true npm run test && lint-staged"
+  }
+}
