@@ -52,15 +52,16 @@ export function getPostsData(
     data: Post & { preview?: { images: { source: { url: string } }[] } }
   }[]
 ) {
+  /**
+   * Apparently some posts (link-only, NSFW, etc.) have the `thumbnail` field
+   * set to placeholder strings and not an actual image url.
+   */
+  const notReallyThumbnails = ['self', 'default', 'nsfw']
+
   return rawPosts.map((p) => ({
-    /**
-     * Apparently some text-only or link-only posts have the `thumbnail` field
-     * set to `self` or `default` and not an actual image url.
-     */
-    thumbnail: ['self', 'default'].includes(p.data.thumbnail as string)
+    thumbnail: notReallyThumbnails.includes(p.data.thumbnail as string)
       ? undefined
       : p.data.thumbnail,
-
     // eslint-disable-next-line @typescript-eslint/camelcase
     num_comments: p.data.num_comments,
     fullSizePicture: p.data.preview?.images[0].source.url,
