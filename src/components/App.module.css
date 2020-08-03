@@ -46,10 +46,6 @@
   margin: 0;
 }
 
-.postsList li {
-  border-bottom: 1px solid var(--color-shade-light);
-}
-
 .loadOlderBtn {
   font-size: var(--size-medium);
   padding: 1rem;

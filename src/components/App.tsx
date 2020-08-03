@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { useSelector, useDispatch, PostName, getPostsData } from '../reducer'
 import SidebarToggle from './SidebarToggle'
@@ -117,22 +118,29 @@ function App() {
             <p className={styles.loadingMsg}>Loading posts...</p>
           )}
           <ul className={styles.postsList}>
-            {posts.map((post) => (
-              <li key={post.name}>
-                <ListItem
-                  numComments={post.num_comments}
-                  isSelected={post.name === selectedPost?.name}
-                  onDismiss={handleDismissPost}
-                  thumbnail={post.thumbnail}
-                  onSelect={handleSelectPost}
-                  created={post.created}
-                  isRead={!!readPosts[post.name]}
-                  author={post.author}
-                  title={post.title}
-                  name={post.name}
-                />
-              </li>
-            ))}
+            <AnimatePresence>
+              {posts.map((post) => (
+                <motion.li
+                  animate={{ opacity: 1, maxHeight: 400 }}
+                  initial={{ opacity: 0, maxHeight: 0 }}
+                  exit={{ opacity: 0, maxHeight: 0, overflow: 'hidden' }}
+                  key={post.name}
+                >
+                  <ListItem
+                    numComments={post.num_comments}
+                    isSelected={post.name === selectedPost?.name}
+                    onDismiss={handleDismissPost}
+                    thumbnail={post.thumbnail}
+                    onSelect={handleSelectPost}
+                    created={post.created}
+                    isRead={!!readPosts[post.name]}
+                    author={post.author}
+                    title={post.title}
+                    name={post.name}
+                  />
+                </motion.li>
+              ))}
+            </AnimatePresence>
           </ul>
           {!isLoadingNewer && (
             <button
