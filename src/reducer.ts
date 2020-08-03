@@ -12,6 +12,7 @@ export const useDispatch: () => Dispatch<Action> = untypedUseDispatch
 export type PostName = string
 
 export type Post = {
+  fullSizePicture?: string
   num_comments: number
   thumbnail?: string
   created: number
@@ -46,7 +47,11 @@ export type State = {
  *
  * @param rawPosts - An array or Reddit posts as retrieved from the API
  */
-export function getPostsData(rawPosts: { data: Post }[]) {
+export function getPostsData(
+  rawPosts: {
+    data: Post & { preview?: { images: { source: { url: string } }[] } }
+  }[]
+) {
   return rawPosts.map((p) => ({
     /**
      * Apparently some text-only or link-only posts have the `thumbnail` field
@@ -58,6 +63,7 @@ export function getPostsData(rawPosts: { data: Post }[]) {
 
     // eslint-disable-next-line @typescript-eslint/camelcase
     num_comments: p.data.num_comments,
+    fullSizePicture: p.data.preview?.images[0].source.url,
     created: p.data.created,
     author: p.data.author,
     title: p.data.title,

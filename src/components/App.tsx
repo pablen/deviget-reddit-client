@@ -160,6 +160,7 @@ function App() {
       <main className={styles.main}>
         {selectedPost && (
           <PostDetail
+            fullSizePicture={selectedPost.fullSizePicture}
             numComments={selectedPost.num_comments}
             thumbnail={selectedPost.thumbnail}
             created={selectedPost.created}
