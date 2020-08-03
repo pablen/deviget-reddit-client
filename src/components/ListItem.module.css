@@ -24,11 +24,15 @@
   margin-left: 0.25rem;
   font-size: var(--size-medium);
   font-weight: var(--weight-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .createdTime {
   margin-left: 0.75rem;
   font-weight: var(--weight-light);
+  white-space: nowrap;
 }
 
 .row2 {

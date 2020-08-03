@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { useSelector, useDispatch, PostName, getPostsData } from '../reducer'
+import LoadingIndicator from './LoadingIndicator'
 import SidebarToggle from './SidebarToggle'
 import PostDetail from './PostDetail'
 import ListItem from './ListItem'
@@ -115,7 +116,10 @@ function App() {
         <h1 className={styles.sidebarTitle}>Reddit Posts</h1>
         <div className={styles.scrollContainer}>
           {isLoadingNewer && (
-            <p className={styles.loadingMsg}>Loading posts...</p>
+            <div className={styles.loadingMsg}>
+              <LoadingIndicator />
+              Loading posts
+            </div>
           )}
           <ul className={styles.postsList}>
             <AnimatePresence>
@@ -142,6 +146,7 @@ function App() {
               ))}
             </AnimatePresence>
           </ul>
+
           {!isLoadingNewer && (
             <button
               className={styles.loadOlderBtn}
@@ -149,11 +154,15 @@ function App() {
               onClick={handleLoadOlderPosts}
               type="button"
             >
-              {!oldestPost
-                ? 'No More Posts'
-                : isLoadingOlder
-                ? 'Loading...'
-                : 'Load More'}
+              {!oldestPost ? (
+                'No More Posts'
+              ) : isLoadingOlder ? (
+                <>
+                  <LoadingIndicator /> Loading...
+                </>
+              ) : (
+                'Load More'
+              )}
             </button>
           )}
         </div>

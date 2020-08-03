@@ -40,6 +40,11 @@
   text-align: center;
 }
 
+.loadingMsg svg {
+  margin: 0.5rem auto;
+  display: block;
+}
+
 .postsList {
   list-style-type: none;
   padding: 0;
@@ -49,6 +54,11 @@
 .loadOlderBtn {
   font-size: var(--size-medium);
   padding: 1rem;
+}
+
+.loadOlderBtn svg {
+  vertical-align: middle;
+  margin: -8px 4px -4px -38px;
 }
 
 .loadOlderBtn:hover,
