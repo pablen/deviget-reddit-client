@@ -34,6 +34,14 @@ function App() {
     [dispatch]
   )
 
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('readPosts', JSON.stringify(readPosts))
+    } catch (err) {
+      console.warn('Error persisting read posts state:', err.message)
+    }
+  }, [readPosts])
+
   const handleDismissPost = useCallback(
     (ev: React.MouseEvent<HTMLButtonElement>) => {
       ev.stopPropagation()

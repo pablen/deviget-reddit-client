@@ -73,10 +73,17 @@ export function getPostsData(
   }))
 }
 
+let readPosts = {}
+try {
+  readPosts = JSON.parse(window.localStorage.getItem('readPosts') as string)
+} catch (err) {
+  console.warn('Error retrieving read posts state:', err.message)
+}
+
 const initialState: State = {
   selectedPost: undefined,
   oldestPost: undefined,
-  readPosts: {},
+  readPosts,
   posts: [],
 }
 
