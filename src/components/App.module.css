@@ -24,6 +24,7 @@
   width: 320px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   transition: transform 300ms;
   transform: translateX(-100%);
 }
@@ -42,12 +43,15 @@
   color: var(--color-copy-inverse);
 }
 
+.scrollContainer {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
 .postsList {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1;
-  overflow: auto;
 }
 
 .postsList li + li {
