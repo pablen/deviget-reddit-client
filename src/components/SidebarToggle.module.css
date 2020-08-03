@@ -1,0 +1,40 @@
+.container {
+  background: rgb(0 0 0 / 0%);
+  border: none;
+  margin: 0;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: auto;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  font-size: var(--size-medium);
+  color: var(--color-copy);
+}
+
+.container:hover,
+.container:focus {
+  color: var(--color-accent);
+}
+
+.icon,
+.iconRotated {
+  will-change: auto;
+  display: block;
+  fill: currentColor;
+  transform-origin: center center;
+  transition: transform 300ms;
+  transform: rotateY(0);
+}
+
+.iconRotated {
+  transform: rotateY(180deg);
+}
+
+@media (min-width: 800px) {
+  .container {
+    display: none;
+  }
+}

@@ -48,9 +48,16 @@ export type State = {
  */
 export function getPostsData(rawPosts: { data: Post }[]) {
   return rawPosts.map((p) => ({
+    /**
+     * Apparently some text-only or link-only posts have the `thumbnail` field
+     * set to `self` or `default` and not an actual image url.
+     */
+    thumbnail: ['self', 'default'].includes(p.data.thumbnail as string)
+      ? undefined
+      : p.data.thumbnail,
+
     // eslint-disable-next-line @typescript-eslint/camelcase
     num_comments: p.data.num_comments,
-    thumbnail: p.data.thumbnail,
     created: p.data.created,
     author: p.data.author,
     title: p.data.title,

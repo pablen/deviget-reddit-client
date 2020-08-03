@@ -1,0 +1,75 @@
+.container {
+  padding: 0.5rem 0.25rem;
+  font-size: var(--size-small);
+  position: relative;
+}
+
+.container:hover,
+.container:focus {
+  background-color: var(--color-shade-light);
+}
+
+.row1 {
+  display: flex;
+  align-items: baseline;
+}
+
+.isReadMarker {
+  fill: var(--color-accent);
+}
+
+.author {
+  margin-left: 0.25rem;
+  font-size: var(--size-medium);
+  font-weight: var(--weight-bold);
+}
+
+.createdTime {
+  margin-left: 0.75rem;
+  font-weight: var(--weight-light);
+}
+
+.row2 {
+  display: flex;
+  align-items: flex-start;
+  margin: 0.5rem 0;
+}
+
+.thumbnail {
+  object-fit: cover;
+  width: var(--thumbnail-size);
+  height: var(--thumbnail-size);
+  margin-right: 0.5rem;
+}
+
+.title {
+  font-size: var(--size-small);
+  text-align: left;
+  margin: 0;
+}
+
+.row3 {
+  text-align: left;
+}
+
+.comments {
+  font-weight: var(--weight-light);
+}
+
+.dismissBtn {
+  width: auto;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.dismissBtn:hover,
+.dismissBtn:focus {
+  color: var(--color-accent);
+}
+
+.dismissBtn svg {
+  margin-right: 0.15rem;
+}

@@ -1,6 +1,9 @@
 import React, { useCallback, useState, useEffect } from 'react'
 
 import { useSelector, useDispatch, PostName, getPostsData } from '../reducer'
+import SidebarToggle from './SidebarToggle'
+import PostDetail from './PostDetail'
+import ListItem from './ListItem'
 import styles from './App.module.css'
 
 function App() {
@@ -20,6 +23,7 @@ function App() {
 
   const handleSelectPost = useCallback(
     (ev: React.MouseEvent<HTMLButtonElement>) => {
+      setIsSidebarVisible(false)
       dispatch({
         type: 'post selected',
         payload: ev.currentTarget.dataset.postname as PostName,
@@ -98,13 +102,10 @@ function App() {
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.sidebarToggle}
-        onClick={handleSidebarToggle}
-        type="button"
-      >
-        {isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
-      </button>
+      <SidebarToggle
+        isSidebarVisible={isSidebarVisible}
+        onToggle={handleSidebarToggle}
+      />
       <nav
         className={`${styles.sidebar} ${
           isSidebarVisible ? styles.isSidebarVisible : styles.isSidebarHidden
@@ -112,34 +113,24 @@ function App() {
       >
         <h1 className={styles.sidebarTitle}>Reddit Posts</h1>
         <div className={styles.scrollContainer}>
-          {isLoadingNewer && <p>Loading posts...</p>}
+          {isLoadingNewer && (
+            <p className={styles.loadingMsg}>Loading posts...</p>
+          )}
           <ul className={styles.postsList}>
             {posts.map((post) => (
               <li key={post.name}>
-                <button
-                  data-postname={post.name}
-                  aria-current={post.name === selectedPost?.name}
-                  className={styles.postsListItem}
-                  onClick={handleSelectPost}
-                  type="button"
-                >
-                  <p>Author: {post.author}</p>
-                  <p>
-                    Created: <time>{post.created}</time>
-                  </p>
-                  {post.thumbnail && <img src={post.thumbnail} alt="" />}
-                  <p>{post.title}</p>
-                  <p>name: {post.name}</p>
-                  <p>Comments: {post.num_comments}</p>
-                  <p>Read: {readPosts[post.name] ? 'Yes' : 'No'}</p>
-                </button>
-                <button
-                  data-postname={post.name}
-                  onClick={handleDismissPost}
-                  type="button"
-                >
-                  Dismiss
-                </button>
+                <ListItem
+                  numComments={post.num_comments}
+                  isSelected={post.name === selectedPost?.name}
+                  onDismiss={handleDismissPost}
+                  thumbnail={post.thumbnail}
+                  onSelect={handleSelectPost}
+                  created={post.created}
+                  isRead={!!readPosts[post.name]}
+                  author={post.author}
+                  title={post.title}
+                  name={post.name}
+                />
               </li>
             ))}
           </ul>
@@ -168,23 +159,14 @@ function App() {
       </nav>
       <main className={styles.main}>
         {selectedPost && (
-          <article>
-            <h1>{selectedPost.author}</h1>
-            <p>
-              Created: <time>{selectedPost.created}</time>
-            </p>
-            {selectedPost.thumbnail && (
-              <img src={selectedPost.thumbnail} alt="" />
-            )}
-            <p>{selectedPost.title}</p>
-            <a
-              target="_blank"
-              href={selectedPost.url}
-              rel="noreferrer noopener"
-            >
-              {selectedPost.url}
-            </a>
-          </article>
+          <PostDetail
+            numComments={selectedPost.num_comments}
+            thumbnail={selectedPost.thumbnail}
+            created={selectedPost.created}
+            author={selectedPost.author}
+            title={selectedPost.title}
+            url={selectedPost.url}
+          />
         )}
       </main>
     </div>

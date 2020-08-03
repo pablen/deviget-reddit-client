@@ -1,0 +1,7 @@
+.author {
+  font-size: var(--size-large);
+}
+
+.created {
+  font-size: var(--size-small);
+}

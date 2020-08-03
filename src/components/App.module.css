@@ -2,19 +2,6 @@
   position: relative;
 }
 
-.sidebarToggle {
-  position: absolute;
-  z-index: 1;
-  width: auto;
-  background: #bbb;
-  padding: 0.3rem;
-}
-
-.sidebarToggle:hover,
-.sidebarToggle:focus {
-  background: #ccc;
-}
-
 .sidebar {
   background-color: var(--color-primary);
   height: 100vh;
@@ -36,16 +23,21 @@
 .sidebarTitle {
   background-color: var(--color-shade-medium);
   margin: 0;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
   padding: 0.75rem;
-  color: var(--color-copy-inverse);
+  text-align: center;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-medium);
+  color: var(--color-copy);
 }
 
 .scrollContainer {
   flex-grow: 1;
   overflow-y: auto;
+}
+
+.loadingMsg {
+  padding: 2rem;
+  text-align: center;
 }
 
 .postsList {
@@ -54,42 +46,47 @@
   margin: 0;
 }
 
-.postsList li + li {
-  border-top: 1px solid silver;
+.postsList li {
+  border-bottom: 1px solid var(--color-shade-light);
+}
+
+.loadOlderBtn {
+  font-size: var(--size-medium);
+  padding: 1rem;
+}
+
+.loadOlderBtn:hover,
+.loadOlderBtn:focus {
+  color: var(--color-accent);
 }
 
 .dismissAllBtn {
   padding: 0.75rem;
-  background-color: var(--color-shade-medium);
-  color: var(--color-copy-inverse);
+  background-color: var(--color-shade-light);
+  color: var(--color-copy);
+  font-size: var(--size-medium);
 }
 
 .dismissAllBtn:focus,
 .dismissAllBtn:hover {
-  background-color: var(--color-shade-dark);
+  color: var(--color-accent);
+  background-color: var(--color-shade-medium);
 }
 
 .main {
-  padding: 2rem;
+  padding: 42px;
   flex-grow: 1;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .main h1 {
   margin: 0;
 }
 
-.postsListItem:hover,
-.postsListItem:focus {
-  background-color: var(--color-shade-light);
-}
-
 @media (min-width: 800px) {
   .container {
     display: flex;
-  }
-
-  .sidebarToggle {
-    display: none;
   }
 
   .sidebar {
