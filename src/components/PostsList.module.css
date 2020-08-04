@@ -1,0 +1,48 @@
+.scrollContainer {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.loadingMsg {
+  padding: 2rem;
+  text-align: center;
+}
+
+.loadingMsg svg {
+  margin: 0.5rem auto;
+  display: block;
+}
+
+.postsList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.loadOlderBtn {
+  font-size: var(--size-medium);
+  padding: 1rem;
+}
+
+.loadOlderBtn svg {
+  vertical-align: middle;
+  margin: -8px 4px -4px -38px;
+}
+
+.loadOlderBtn:hover,
+.loadOlderBtn:focus {
+  color: var(--color-accent);
+}
+
+.dismissAllBtn {
+  padding: 0.75rem;
+  background-color: var(--color-shade-light);
+  color: var(--color-copy);
+  font-size: var(--size-medium);
+}
+
+.dismissAllBtn:focus,
+.dismissAllBtn:hover {
+  color: var(--color-accent);
+  background-color: var(--color-shade-medium);
+}
