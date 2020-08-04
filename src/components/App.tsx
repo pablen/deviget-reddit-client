@@ -1,10 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { useSelector, useDispatch, PostName, getPostsData } from '../reducer'
+import { useSelector, useDispatch } from '../reducer'
 import LoadingIndicator from './LoadingIndicator'
 import SidebarToggle from './SidebarToggle'
+import { PostName } from '../types'
 import PostDetail from './PostDetail'
+import * as utils from '../utils'
 import ListItem from './ListItem'
 import styles from './App.module.css'
 
@@ -17,11 +19,11 @@ function App() {
     setIsSidebarVisible((s) => !s)
   }, [])
 
+  const dispatch = useDispatch()
   const selectedPost = useSelector((s) => s.selectedPost)
-  const posts = useSelector((s) => s.posts)
   const oldestPost = useSelector((s) => s.oldestPost)
   const readPosts = useSelector((s) => s.readPosts)
-  const dispatch = useDispatch()
+  const posts = useSelector((s) => s.posts)
 
   const handleSelectPost = useCallback(
     (ev: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,11 +37,7 @@ function App() {
   )
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem('readPosts', JSON.stringify(readPosts))
-    } catch (err) {
-      console.warn('Error persisting read posts state:', err.message)
-    }
+    utils.persistReadPosts(readPosts)
   }, [readPosts])
 
   const handleDismissPost = useCallback(
@@ -57,47 +55,37 @@ function App() {
     dispatch({ type: 'all posts dismissed' })
   }, [dispatch])
 
-  const fetchPosts = useCallback(
-    (after?: string) =>
-      fetch(
-        'https://www.reddit.com/top.json' + (after ? `?after=${after}` : '')
-      )
-        .then((res) => res.json())
-        .catch((err) => {
-          console.warn('There was a problem fetching posts', err.message)
-        }),
-    []
-  )
-
   useEffect(() => {
     setIsLoadingNewer(true)
-    fetchPosts()
+    utils
+      .fetchPosts()
       .then(({ data }) => {
         dispatch({
           type: 'newer posts received',
           payload: {
-            posts: getPostsData(data.children),
+            posts: data.children.map(utils.extractPostData),
             after: data.after,
           },
         })
       })
       .finally(() => setIsLoadingNewer(false))
-  }, [dispatch, fetchPosts])
+  }, [dispatch])
 
   const handleLoadOlderPosts = useCallback(() => {
     setIsLoadingOlder(true)
-    fetchPosts(oldestPost)
+    utils
+      .fetchPosts(oldestPost)
       .then(({ data }) => {
         dispatch({
           type: 'older posts received',
           payload: {
-            posts: getPostsData(data.children),
+            posts: data.children.map(utils.extractPostData),
             after: data.after,
           },
         })
       })
       .finally(() => setIsLoadingOlder(false))
-  }, [oldestPost, dispatch, fetchPosts])
+  }, [oldestPost, dispatch])
 
   // Reset sidebar toggle when resizing viewport
   useEffect(() => {

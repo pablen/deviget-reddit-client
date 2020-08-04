@@ -3,7 +3,8 @@ import { Provider } from 'react-redux'
 import { render } from '@testing-library/react'
 import React from 'react'
 
-import reducer, { State, Action } from '../reducer'
+import { State, Action } from '../types'
+import reducer from '../reducer'
 import App from './App'
 
 test('renders basic layout', () => {

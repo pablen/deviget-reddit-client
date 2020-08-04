@@ -3,8 +3,9 @@ import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 import React from 'react'
 
-import reducer, { State, Action } from './reducer'
 import * as serviceWorker from './serviceWorker'
+import { State, Action } from './types'
+import reducer from './reducer'
 import App from './components/App'
 import './index.css'
 
