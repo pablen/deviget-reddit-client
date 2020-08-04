@@ -75,4 +75,4 @@ ListItem.propTypes = ListItemPropTypes
 
 type Props = PropTypes.InferProps<typeof ListItemPropTypes>
 
-export default ListItem
+export default React.memo(ListItem)

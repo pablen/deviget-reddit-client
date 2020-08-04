@@ -26,4 +26,4 @@ function DismissIcon() {
   )
 }
 
-export default DismissIcon
+export default React.memo(DismissIcon)

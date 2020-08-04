@@ -41,4 +41,4 @@ SidebarToggle.propTypes = SidebarTogglePropTypes
 
 type Props = PropTypes.InferProps<typeof SidebarTogglePropTypes>
 
-export default SidebarToggle
+export default React.memo(SidebarToggle)
