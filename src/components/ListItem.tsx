@@ -44,7 +44,7 @@ function ListItem(props: Props) {
           </p>
         </div>
         <div className={styles.row3}>
-          <div className={styles.comments} data-testId="numComments">
+          <div className={styles.comments} data-testid="numComments">
             {props.numComments} {props.numComments > 1 ? 'comments' : 'comment'}
           </div>
         </div>
