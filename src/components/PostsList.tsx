@@ -36,7 +36,7 @@ function PostsList({ toggleSidebar }: Props) {
   }, [dispatch])
 
   useEffect(() => {
-    utils.persistReadPosts(readPosts)
+    if (readPosts) utils.persistReadPosts(readPosts)
   }, [readPosts])
 
   const handleSelectPost = useCallback(
@@ -100,12 +100,12 @@ function PostsList({ toggleSidebar }: Props) {
                 key={post.name}
               >
                 <ListItem
-                  numComments={post.num_comments}
+                  numComments={post.numComments}
                   isSelected={post.name === selectedPost?.name}
                   onDismiss={handleDismissPost}
                   thumbnail={post.thumbnail}
+                  createdAt={post.createdAt}
                   onSelect={handleSelectPost}
-                  created={post.created}
                   isRead={!!readPosts[post.name]}
                   author={post.author}
                   title={post.title}

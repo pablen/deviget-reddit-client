@@ -14,7 +14,7 @@ function PostDetail() {
       <p className={styles.created}>
         Created{' '}
         <time>
-          {formatDistanceToNowStrict(selectedPost.created * 1000, {
+          {formatDistanceToNowStrict(selectedPost.createdAt * 1000, {
             addSuffix: true,
           })}
         </time>
@@ -31,9 +31,9 @@ function PostDetail() {
       ) : selectedPost.thumbnail ? (
         <img src={selectedPost.thumbnail} alt="" />
       ) : null}
-      <p>
-        {selectedPost.num_comments}{' '}
-        {selectedPost.num_comments > 1 ? 'comments' : 'comment'}
+      <p data-testid="numComments">
+        {selectedPost.numComments}{' '}
+        {selectedPost.numComments > 1 ? 'comments' : 'comment'}
       </p>
       <p>
         URL:{' '}

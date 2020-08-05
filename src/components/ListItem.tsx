@@ -7,7 +7,7 @@ import styles from './ListItem.module.css'
 
 function ListItem(props: Props) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid={`post-${props.name}`}>
       <button
         data-postname={props.name}
         aria-current={props.isSelected}
@@ -23,11 +23,13 @@ function ListItem(props: Props) {
               <circle cx={1} cy={1} r={1} opacity={props.isRead ? 0 : 1} />
             </svg>
           </div>
-          <div className={styles.author}>{props.author}</div>
-          <div className={styles.createdTime}>
+          <div className={styles.author} data-testid="author">
+            {props.author}
+          </div>
+          <div className={styles.createdTime} data-testid="createdAt">
             Created{' '}
             <time>
-              {formatDistanceToNowStrict(props.created * 1000, {
+              {formatDistanceToNowStrict(props.createdAt * 1000, {
                 addSuffix: true,
               })}
             </time>
@@ -37,10 +39,12 @@ function ListItem(props: Props) {
           {props.thumbnail && (
             <img className={styles.thumbnail} src={props.thumbnail} alt="" />
           )}
-          <p className={styles.title}>{props.title}</p>
+          <p className={styles.title} data-testid="title">
+            {props.title}
+          </p>
         </div>
         <div className={styles.row3}>
-          <div className={styles.comments}>
+          <div className={styles.comments} data-testId="numComments">
             {props.numComments} {props.numComments > 1 ? 'comments' : 'comment'}
           </div>
         </div>
@@ -61,10 +65,10 @@ function ListItem(props: Props) {
 const ListItemPropTypes = {
   numComments: PropTypes.number.isRequired,
   isSelected: PropTypes.bool.isRequired,
+  createdAt: PropTypes.number.isRequired,
   onDismiss: PropTypes.func.isRequired,
   thumbnail: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
-  created: PropTypes.number.isRequired,
   author: PropTypes.string.isRequired,
   isRead: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,

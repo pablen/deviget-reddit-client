@@ -26,10 +26,9 @@ export function extractPostData(rawPost: RawPostData) {
     thumbnail: notReallyThumbnails.includes(rawPost.data.thumbnail as string)
       ? undefined
       : rawPost.data.thumbnail,
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    num_comments: rawPost.data.num_comments,
     fullSizePicture: rawPost.data.preview?.images[0].source.url,
-    created: rawPost.data.created,
+    numComments: rawPost.data.num_comments,
+    createdAt: rawPost.data.created_utc,
     author: rawPost.data.author,
     title: rawPost.data.title,
     name: rawPost.data.name,
@@ -48,7 +47,10 @@ export function persistReadPosts(readPosts: State['readPosts']): void {
 export function retrieveReadPosts() {
   let readPosts: State['readPosts'] = {}
   try {
-    readPosts = JSON.parse(window.localStorage.getItem('readPosts') as string)
+    const value = window.localStorage.getItem('readPosts')
+    if (value) {
+      readPosts = JSON.parse(value)
+    }
   } catch (err) {
     console.warn('Error retrieving read posts state:', err.message)
   }

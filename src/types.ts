@@ -2,9 +2,9 @@ export type PostName = string
 
 export type Post = {
   fullSizePicture?: string
-  num_comments: number
+  numComments: number
   thumbnail?: string
-  created: number
+  createdAt: number
   author: string
   title: string
   name: PostName
@@ -12,7 +12,16 @@ export type Post = {
 }
 
 export type RawPostData = {
-  data: Post & { preview?: { images: { source: { url: string } }[] } }
+  data: {
+    num_comments: number
+    created_utc: number
+    thumbnail: string
+    preview?: { images: { source: { url: string } }[] }
+    author: string
+    title: string
+    name: PostName
+    url: string
+  }
 }
 
 export type RawApiResponse = {
