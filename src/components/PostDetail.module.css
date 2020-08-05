@@ -6,3 +6,33 @@
 .created {
   font-size: var(--size-small);
 }
+
+.thumbBtn {
+  display: inline-block;
+  width: auto;
+}
+
+.thumbBtn:hover,
+.thumbBtn:focus {
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.fullSizePicture {
+  display: block;
+  width: 100%;
+}
+
+.closeBtn {
+  color: var(--color-accent);
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  width: auto;
+  margin: 1.5rem auto 0;
+  border-radius: 4px;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: var(--color-copy-inverse);
+  background-color: var(--color-accent);
+}

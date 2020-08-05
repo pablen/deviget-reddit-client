@@ -1,13 +1,25 @@
 import { formatDistanceToNowStrict } from 'date-fns'
+import { Dialog } from '@reach/dialog'
 import unescape from 'lodash/unescape'
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { useSelector } from '../reducer'
 import styles from './PostDetail.module.css'
 
 function PostDetail() {
   const selectedPost = useSelector((s) => s.selectedPost)
+  const [isDialogVisible, setIsDialogVisible] = React.useState(false)
+
+  const handleThumbnailClick = useCallback(() => {
+    setIsDialogVisible(true)
+  }, [])
+
+  const handleDialogClose = useCallback(() => {
+    setIsDialogVisible(false)
+  }, [])
+
   if (!selectedPost) return null
+
   return (
     <article>
       <h1 className={styles.author}>{selectedPost.author}</h1>
@@ -20,17 +32,16 @@ function PostDetail() {
         </time>
       </p>
       <p>{selectedPost.title}</p>
-      {selectedPost.fullSizePicture && selectedPost.thumbnail ? (
-        <a
-          target="_blank"
-          href={unescape(selectedPost.fullSizePicture)}
-          rel="noopener noreferrer"
+      {selectedPost.thumbnail && (
+        <button
+          className={styles.thumbBtn}
+          disabled={!selectedPost.fullSizePicture}
+          onClick={handleThumbnailClick}
+          type="button"
         >
           <img src={selectedPost.thumbnail} alt="" />
-        </a>
-      ) : selectedPost.thumbnail ? (
-        <img src={selectedPost.thumbnail} alt="" />
-      ) : null}
+        </button>
+      )}
       <p data-testid="numComments">
         {selectedPost.numComments}{' '}
         {selectedPost.numComments > 1 ? 'comments' : 'comment'}
@@ -41,6 +52,25 @@ function PostDetail() {
           {selectedPost.url}
         </a>
       </p>
+      {isDialogVisible && (
+        <Dialog onDismiss={handleDialogClose} aria-label="Full size picture">
+          <div>
+            <img
+              data-testid="fullsize-image"
+              className={styles.fullSizePicture}
+              src={unescape(selectedPost.fullSizePicture)}
+              alt=""
+            />
+          </div>
+          <button
+            className={styles.closeBtn}
+            onClick={handleDialogClose}
+            type="button"
+          >
+            Close
+          </button>
+        </Dialog>
+      )}
     </article>
   )
 }

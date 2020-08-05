@@ -34,7 +34,7 @@ describe('The post detail', () => {
       })
   })
 
-  it('links to full size image when clicking a thumbnail', () => {
+  it.only('opens a modal with the full size image when clicking a thumbnail', () => {
     cy.visit('/')
     cy.get('[data-testid^=post-] img')
       .first()
@@ -43,13 +43,11 @@ describe('The post detail', () => {
         cy.wrap(thumbnailSrc).should('not.be.empty')
         cy.get('[data-testid^=post-]').first().click()
 
-        cy.get(`main img[src="${thumbnailSrc}"]`).then(($detailThumb) => {
-          cy.wrap($detailThumb.closest('a')).should(
-            'have.attr',
-            'target',
-            '_blank'
-          )
-        })
+        cy.get('[data-testid=fullsize-image').should('not.exist')
+        cy.get('main img').click()
+        cy.get('[data-testid=fullsize-image').should('exist')
+        cy.get('[role=dialog]').contains('Close').click()
+        cy.get('[data-testid=fullsize-image').should('not.exist')
       })
   })
 })
