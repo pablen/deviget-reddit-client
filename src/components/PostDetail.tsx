@@ -18,7 +18,7 @@ function PostDetail() {
     setIsDialogVisible(false)
   }, [])
 
-  if (!selectedPost) return null
+  if (!selectedPost) return <div>No post selected</div>
 
   return (
     <article>
