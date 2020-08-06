@@ -19,6 +19,9 @@ function PostsList({ toggleSidebar }: Props) {
   const [isLoadingNewer, setIsLoadingNewer] = useState(false)
   const [isLoadingOlder, setIsLoadingOlder] = useState(false)
 
+  /**
+   * Load posts on first render
+   */
   useEffect(() => {
     setIsLoadingNewer(true)
     utils
@@ -35,6 +38,10 @@ function PostsList({ toggleSidebar }: Props) {
       .finally(() => setIsLoadingNewer(false))
   }, [dispatch])
 
+  /**
+   * Each time `readPosts` updates, we call `persisReadPosts()` to save it in
+   * the browser's LocalStorage.
+   */
   useEffect(() => {
     if (readPosts) utils.persistReadPosts(readPosts)
   }, [readPosts])

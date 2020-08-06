@@ -1,5 +1,10 @@
 import { PostName, RawApiResponse, RawPostData, State } from './types'
 
+/**
+ * Fetches the current top posts from Reddit API.
+ *
+ * @param after - The post name of the last fetched post, useful for pagination
+ */
 export async function fetchPosts(after?: PostName): Promise<RawApiResponse> {
   return fetch(
     'https://www.reddit.com/top.json' + (after ? `?after=${after}` : '')
@@ -11,7 +16,7 @@ export async function fetchPosts(after?: PostName): Promise<RawApiResponse> {
 }
 
 /**
- * Maps API data in order to only store fields relevant to this app
+ * Maps raw API data in order to only store fields relevant to this app.
  *
  * @param rawPost - A Reddit posts as retrieved from the API
  */
@@ -36,6 +41,11 @@ export function extractPostData(rawPost: RawPostData) {
   }
 }
 
+/**
+ * Saves the provided read posts state in the browser's LocalStorage
+ *
+ * @param readPosts - The current map of read posts
+ */
 export function persistReadPosts(readPosts: State['readPosts']): void {
   try {
     window.localStorage.setItem('readPosts', JSON.stringify(readPosts))
@@ -44,6 +54,9 @@ export function persistReadPosts(readPosts: State['readPosts']): void {
   }
 }
 
+/**
+ * Retrieves the read posts state from the browser's LocalStorage
+ */
 export function retrieveReadPosts() {
   let readPosts: State['readPosts'] = {}
   try {

@@ -62,6 +62,14 @@ function ListItem(props: Props) {
   )
 }
 
+/**
+ * I use both static type checking with the TS compiler and runtime type
+ * checking with prop-types in development because some checks can only
+ * be performed in runtine e.g. when dealing with remote API data.
+ *
+ * Thankfully, instead of defining the types twice we can define only the
+ * prop-types and then make TypeScript infer the props object type from them.
+ */
 const ListItemPropTypes = {
   numComments: PropTypes.number.isRequired,
   isSelected: PropTypes.bool.isRequired,

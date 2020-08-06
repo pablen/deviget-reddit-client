@@ -14,7 +14,11 @@ function App() {
     )
   }, [])
 
-  // Reset sidebar toggle when resizing viewport
+  /**
+   * Reset sidebar toggle when resizing viewport.
+   * This is needed because we always want to begin with a collapsed sidebar
+   * when switching to a narrow viewport, even if it was previously expanded.
+   */
   useEffect(() => {
     if (!window.matchMedia) return
     const mql = window.matchMedia('(max-width: 800px)')

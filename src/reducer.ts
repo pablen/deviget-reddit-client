@@ -15,8 +15,12 @@ export const useDispatch: () => Dispatch<Action> = untypedUseDispatch
 const initialState: State = {
   selectedPost: undefined,
   oldestPost: undefined,
-  readPosts: retrieveReadPosts(),
   posts: [],
+  /**
+   * Populate with LocalStorage data. As this is the only key persisted it is
+   * simpler to populate it here instead of user `createStore()` rehydration.
+   */
+  readPosts: retrieveReadPosts(),
 }
 
 export default function reducer(
@@ -30,8 +34,9 @@ export default function reducer(
         readPosts: { ...state.readPosts, [action.payload]: true },
 
         /**
-         * We store the full selected post insted of just an id as per the demo
-         * video we need to keep the data visible even when dismissed.
+         * We store the complete selected post data instead of just a post name
+         * as the demo video shows we need to keep the data visible even if the
+         * selected post is dismissed.
          */
         selectedPost: state.posts.find((p) => p.name === action.payload),
       }
@@ -45,6 +50,11 @@ export default function reducer(
     case 'all posts dismissed':
       return { ...state, posts: [] }
 
+    /**
+     * The newer/older action types would make more sense in a scenario where
+     * the user could scroll down to load more posts and at the same time newer
+     * posts could be added on top (e.g. via a websocket subcription).
+     */
     case 'newer posts received':
       return {
         ...state,

@@ -1,3 +1,7 @@
+/**
+ * A few custom properties that can be referenced in the components styles.
+ * This is basically our theme.
+ */
 :root {
   /* COLORS */
   --color-primary: rgb(195 196 226);
@@ -18,9 +22,14 @@
   --weight-regular: 400;
   --weight-bold: 600;
 
+  /* OTHER */
   --thumbnail-size: 80px;
 }
 
+/**
+ * Very few global styles.
+ * I keep the majority of styles scoped inside the component to prevent leaking.
+ */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -1,7 +1,7 @@
 import { formatDistanceToNowStrict } from 'date-fns'
+import React, { useCallback } from 'react'
 import { Dialog } from '@reach/dialog'
 import unescape from 'lodash/unescape'
-import React, { useCallback } from 'react'
 
 import { useSelector } from '../reducer'
 import styles from './PostDetail.module.css'
