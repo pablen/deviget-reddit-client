@@ -1,7 +1,7 @@
 {
-  "name": "deviget-reddit-client",
+  "name": "react-reddit-client",
   "version": "1.0.0",
-  "description": "Deviget frontend test",
+  "description": "Super basic Reddit Client using React",
   "author": "Pablo Enrici <pabloenrici@gmail.com>",
   "license": "MIT",
   "main": "index.js",

@@ -1,8 +1,8 @@
-# Deviget Frontend Test
+# Super basic Reddit Client using React
 
-![Node.js CI](https://github.com/pablen/deviget-reddit-client/workflows/Node.js%20CI/badge.svg?branch=master)
+![Node.js CI](https://github.com/pablen/react-reddit-client/workflows/Node.js%20CI/badge.svg?branch=master)
 
-Demo: [http://deviget-reddit-client.vercel.app/](http://deviget-reddit-client.vercel.app/)
+Demo: [https://react-reddit-client.vercel.app/](https://react-reddit-client.vercel.app/)
 
 ## Technical description
 
